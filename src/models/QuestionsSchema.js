@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 
 const que_schema = new mongoose.Schema({
+    category: {
+        type: String
+    },
     question: {
         type: String
     },
     answerOptions: {
-        type: [
-            "Mixed"
-        ]
+        type: []
     }
 })
 

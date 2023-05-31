@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.post("/addQuestion", async (req, res) => {
   const user = new Questions({
+    "category": req.body.category,
     "question": req.body.question,
     "answerOptions": [
       {
@@ -40,9 +41,27 @@ app.post("/addQuestion", async (req, res) => {
 
 app.get("/questions", async (req, res) => {
   try {
-    const questiondata = await Questions.find();
-    res.send(questiondata)
-
+    const category = req.header("category");
+    if (category === "random") {
+      const questiondata = await Questions.find();
+      res.send(questiondata)
+    }
+    else if (category === "sports") {
+      const questiondata = await Questions.find({ category: "sports" });
+      res.send(questiondata)
+    }
+    else if (category === "technology") {
+      const questiondata = await Questions.find({ category: "technology" });
+      res.send(questiondata)
+    }
+    else if (category === "space") {
+      const questiondata = await Questions.find({ category: "space" });
+      res.send(questiondata)
+    }
+    else if (category === "science") {
+      const questiondata = await Questions.find({ category: "science" });
+      res.send(questiondata)
+    }
   } catch (e) {
     res.send(e);
   }
