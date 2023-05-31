@@ -1,6 +1,8 @@
 const express = require("express");
-require("./src/db/conn");
+const cors = require("cors");
 const app = express();
+app.use(cors());
+require("./src/db/conn");
 const Questions = require("./src/models/QuestionsSchema");
 const port = process.env.PORT || 80;
 app.use(express.json());
