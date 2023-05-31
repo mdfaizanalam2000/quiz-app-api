@@ -7,23 +7,29 @@ app.use(express.json());
 
 app.post("/addQuestion", async (req, res) => {
   const user = new Questions({
-    "Ques": req.body.Ques,
-    "O1": req.body.O1,
-    "O2": req.body.O2,
-    "O3": req.body.O3,
-    "O4": req.body.O4,
-    "correct": req.body.correct
+    "question": req.body.question,
+    "answerOptions": [
+      {
+        "answerText": req.body.answerOptions[0].answerText,
+        "isCorrect": req.body.answerOptions[0].isCorrect
+      },
+      {
+        "answerText": req.body.answerOptions[1].answerText,
+        "isCorrect": req.body.answerOptions[1].isCorrect
+      },
+      {
+        "answerText": req.body.answerOptions[2].answerText,
+        "isCorrect": req.body.answerOptions[2].isCorrect
+      },
+      {
+        "answerText": req.body.answerOptions[3].answerText,
+        "isCorrect": req.body.answerOptions[3].isCorrect
+      }
+    ]
   })
 
   try {
-    const quiz = await Questions.create({
-      "Ques": req.body.Ques,
-      "O1": req.body.O1,
-      "O2": req.body.O2,
-      "O3": req.body.O3,
-      "O4": req.body.O4,
-      "correct": req.body.correct
-    });
+    const quiz = await user.save();
     res.status(200).json(quiz);
   } catch (error) {
     res.status(400).json({ error: error.message });
